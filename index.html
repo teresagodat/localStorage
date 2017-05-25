@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="styles/main.css">
+  <title>HTML5 APIs: Assignment 6</title>
+  </head>
+  <body>
+    <h1>Local Storage</h1>
+    <div id="table-page" class = "table-container">
+      <button type="button" id="new-pet">Add New Pet Info</button>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Dog's Name
+            </th>
+            <th>
+              Breed
+            </th>
+            <th>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="pets">
+        </tbody>
+      </table>
+    </div>
+    <div id="form-page" style="display:none">
+      <form>
+        <label for="name">Dog's Name</label>
+        <input type="text" id="name" />
+        <br />
+        <label for="breed">Breed</label>
+        <input type="text" id="breed" />
+        <br />
+        <button type="submit" id="submit">Submit</button>
+        <button type="button" id="cancel">Cancel</button>
+      </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script src="js/localStorage.js"></script>
+  </body>
+</html>

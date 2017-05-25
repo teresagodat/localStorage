@@ -1,0 +1,22 @@
+table, td {
+    border: 1px solid black;
+    margin-bottom: 3rem;
+}
+
+tr:nth-child(even) {background: #CCC}
+tr:nth-child(odd) {background: #FFF}
+
+
+body {
+ 
+  margin-right: 50rem;
+  padding-left: .5rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  max-width: 100%;
+  
+}
+
+#formSection label {
+  font-weight: bold;
+}
