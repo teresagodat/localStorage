@@ -7,18 +7,12 @@
   
 
 var pets = [];
+var ITEMS_KEY = "LSDB_items"
 var nextId = 1000;
   
-  
-if(localStorage["Pet_Info"]) {
+getPet();  
+displayPet();
 
-	$('# pets table').removeClass('hidden');
-
-info = JSON.parse(localStorage["Pet_Info"]);
-
-	displayPet();
-
-}
 
 $('#new-pet').on( 'click', addNewPet );
 $('#pets').on( 'click', '.edit', editPet );
@@ -27,6 +21,30 @@ $('#pets').on( 'click', '.delete', confirmAndDeletePet );
 
 //=============================================================================
 
+function getPet(){
+  try {
+      var petsString = localStorage[ ITEMS_KEY];
+    if (petsString) {
+      pets = JSON.parse (petsString);
+      nextID = getNextId();
+    }
+  }  catch (excptn) {
+    console.error ('Unable to read or parse localStorage items');
+  }
+  
+  function getNextId() {
+    var maxId = 1000;
+    pets.forEach( function( person) {
+      if ( +pets._id > maxId) {
+        maxId = +pets.id;
+      }
+    });
+    return maxId + 1;
+  }
+}
+
+
+//=============================================================================
 
 function displayPet( ) {
     var i, len, pet;
@@ -63,7 +81,6 @@ function displayPet( ) {
 
 function addNewPet( ) {
     addOrEditPet( );
-    saveInfo();
 }
 //=============================================================================
 
@@ -72,7 +89,6 @@ function editPet( evt ) {
     if ( i >= 0 ) {
         addOrEditPet( pets[ i ] );
     }
-  saveInfo();
 }
 
 //-----------------------------------------------------------------------------
@@ -84,15 +100,14 @@ function confirmAndDeletePet( evt ) {
                              pets[ i ].name + '"?' ) ) {
             deletePet( i );
             displayPet( );
-            saveInfo();
         }
     }
 
     //-------------------------------------------------------------------------
     function deletePet( idx ) {
         pets.splice( idx, 1 );
+        localStorage [ ITEMS_KEY ]= JSON.stringify( pets );
     }
-  saveInfo();
 }
 
 //-----------------------------------------------------------------------------
@@ -122,7 +137,7 @@ function addOrEditPet( pet ) {
         $('#breed').val( '' );
     }
     $('#submit').one( 'click', addOrUpdatePet );
-    $('#cancel').one( 'click', displayPet ); saveInfo();
+    $('#cancel').one( 'click', displayPet );
 
     $('#table-page').hide();
     $('#form-page').show();
@@ -143,20 +158,11 @@ function addOrEditPet( pet ) {
             };
             pets.push( newPet );
         }
+        localStorage[ ITEMS_KEY] = JSON.stringify( pets );
         displayPet( );
-      saveInfo();
-      loadInfo()
     }
 }
 
 //=============================================================================
 
 })();
-
-function saveInfo() {
-            localStorage.setItem("tableInfo", JSON.stringify(pets));
-        }
-
- function loadInfo() {
-            tableInfo = JSON.parse( localStorage.getItem("pets"));
-        }
